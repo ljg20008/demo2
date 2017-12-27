@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 开启使用开发模式，详细错误提示 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 配置主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+    <!-- 指定每次配置文件更改后，自动重新加载 -->
+    <constant name="struts.configuration.xml.reload" value="true" />    
+	 <!-- 指定允许上传的文件最大字节数。默认值是20971520(20M) -->    
+	<constant name="struts.multipart.maxSize" value="20971520" />
+	<constant name="struts.convention.action.suffix" value="Action,Controller" />
+	<constant name="struts.enable.SlashesInActionNames" value="true"/>
+	<package name="my_package" extends="json-default" >
+		<interceptors>
+			<interceptor name="loginInterceptor" class="net.yhwl.pricecollection.web.interceptor.LoginInterceptor"></interceptor>
+			
+			<interceptor-stack name="myStatck">
+					<!-- 登录拦截器 -->
+					<interceptor-ref name="loginInterceptor"></interceptor-ref>	
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</interceptor-stack>
+			</interceptors>
+			<default-interceptor-ref name="myStatck"></default-interceptor-ref>
+	</package>
+	
+	<package name="impl_package" extends="json-default" >
+		<default-interceptor-ref name="defaultStack"></default-interceptor-ref>		
+	</package>
+	
+	
+</struts>    
